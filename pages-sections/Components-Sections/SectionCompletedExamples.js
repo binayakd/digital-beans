@@ -17,10 +17,16 @@ export default function SectionCompletedExamples() {
     <div className={classes.section}>
       <div className={classes.container}>
         <GridContainer justify="center">
-          <GridItem xs={12} sm={12} md={3}>
-            <h3>this is the side bar</h3>
-          </GridItem>
-          <GridItem xs={12} sm={12} md={9}>
+          <GridItem xs={12} sm={12} md={12}>
+            <h2>Completed with examples</h2>
+            <h4>
+              The kit comes with three pre-built pages to help you get started
+              faster. You can change the text and images and you{"'"}re good to
+              go. More importantly, looking at them will give you a picture of
+              what you can build with this powerful kit.
+            </h4>
+            <p>this is a paragraph section</p>
+            <br />
             <h2>Completed with examples</h2>
             <h4>
               The kit comes with three pre-built pages to help you get started

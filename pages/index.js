@@ -15,18 +15,16 @@ import GridItem from "components/Grid/GridItem.js";
 import Button from "components/CustomButtons/Button.js";
 import Parallax from "components/Parallax/Parallax.js";
 // sections for this page
-import SectionCompletedExamples from "pages-sections/Components-Sections/SectionCompletedExamples.js";
-import SectionLogin from "pages-sections/Components-Sections/SectionLogin.js";
-import SectionExamples from "pages-sections/Components-Sections/SectionExamples.js";
-import SectionDownload from "pages-sections/Components-Sections/SectionDownload.js";
+import BlogPosts from "pages-sections/BlogPosts/blogPosts.js";
+// functions
+import { getSortedPostsData } from 'lib/posts';
 
 import styles from "assets/jss/pages/index.js";
 
 const useStyles = makeStyles(styles);
 
-export default function Main(props) {
+export default function Main({ allPostsData }) {
   const classes = useStyles();
-  const { ...rest } = props;
   return (
     <div>
       <Header
@@ -34,7 +32,6 @@ export default function Main(props) {
         rightLinks={<HeaderLinks />}
         fixed
         color="dark"
-        {...rest}
       />
       <Parallax>
         <div className={classes.container}>
@@ -52,21 +49,20 @@ export default function Main(props) {
       </Parallax>
 
       <div className={classNames(classes.main, classes.mainRaised)}>
-        <SectionCompletedExamples />
-        <SectionLogin />
-        <GridItem md={12} className={classes.textCenter}>
-          <Link href="/login">
-            <a className={classes.link}>
-              <Button color="primary" size="lg" simple>
-                View Login Page
-              </Button>
-            </a>
-          </Link>
-        </GridItem>
-        <SectionExamples />
-        <SectionDownload />
+        <BlogPosts 
+          data={allPostsData}
+        />
       </div>
       <Footer />
     </div>
   );
+}
+
+export async function getStaticProps() {
+  const allPostsData = getSortedPostsData()
+  return {
+    props: {
+      allPostsData
+    }
+  }
 }
