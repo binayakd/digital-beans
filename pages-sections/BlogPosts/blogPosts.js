@@ -1,7 +1,6 @@
 import React from "react";
-import unified from 'unified';
-import parse from 'remark-parse';
-import remark2react from 'remark-react';
+import ReactMarkdown from 'react-markdown'
+
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 // @material-ui/icons
@@ -12,10 +11,12 @@ import GridItem from "components/Grid/GridItem.js";
 
 // custom components
 import Date from "components/date.js"
+import CodeBlock from "components/codeBlocks.js"
 
 import styles from "pages-sections/BlogPosts/blogPostsStyle.js";
 
 const useStyles = makeStyles(styles);
+
 
 export default function BlogPosts(props) {
   const classes = useStyles();
@@ -28,14 +29,17 @@ export default function BlogPosts(props) {
             <>
               <h2>{title}s</h2>
               <h4>
-              < Date dateString={date} />
+                < Date dateString={date} />
               </h4>
-              {
+              <ReactMarkdown source={content} renderers={{ code: CodeBlock }} />
+              {/* {
                 unified()
                   .use(parse)
-                  .use(remark2react)
+                  .use(remark2rehype)
+                  .use(highlight)
+                  .use(rehype2react, {createElement: React.createElement})
                   .processSync(content).result
-              }
+              } */}
               <br />
             </>
           ))}

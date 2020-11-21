@@ -4,8 +4,7 @@ date: '2017-07-23'
 ---
 Short python script to record data from Nanopool cryptocurrency mining account into Google sheets. 
 The code is pretty well commented, and I listed some gotchas below. 
-Otherwise a pretty simple script. <br>
-[On Github](https://github.com/binayakd/cryptoUpdate) 
+Otherwise a pretty simple script. [On Github](https://github.com/binayakd/cryptoUpdate) 
 
 ```python
 #!/usr/bin/env python
@@ -61,7 +60,22 @@ Proper credentials have to be generated and applied for your script to be able t
 The main list of gspread API references are given here:
 - [http://gspread.readthedocs.io/en/latest/](http://gspread.readthedocs.io/en/latest/)
 
-In this script the sheet file to be written to is selected using the url: `gclient.open_by_url(url)` <br>
-The sheet is selected using the index, which is zero-indexed: `worksheet.get_worksheet(index)` <br>
-The list of values are appened to the worksheet: `sheet.append_row(value_list)` <br>
+In this script the sheet file to be written to is selected using the url: 
+```python
+gclient.open_by_url(url)
+```
+
+
+The sheet is selected using the index, which is zero-indexed: 
+```
+worksheet.get_worksheet(index)
+```
+
+
+The list of values are appened to the worksheet: 
+```
+sheet.append_row(value_list)
+```
+
+
 Be sure to delete any existing empty rows, as the values will only be appended after those empty rows.
