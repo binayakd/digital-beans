@@ -1,8 +1,6 @@
 import React from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
-// react components for routing our app without refresh
-import Link from "next/link";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 // @material-ui/icons
@@ -12,7 +10,6 @@ import HeaderLinks from "components/Header/HeaderLinks.js";
 import Footer from "components/Footer/Footer.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
-import Button from "components/CustomButtons/Button.js";
 import Parallax from "components/Parallax/Parallax.js";
 // sections for this page
 import BlogPosts from "pages-sections/BlogPosts/blogPosts.js";
