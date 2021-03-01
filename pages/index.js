@@ -1,58 +1,40 @@
-import React from "react";
-// nodejs library that concatenates classes
-import classNames from "classnames";
-// @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
-// @material-ui/icons
-// core components
-import Header from "components/Header/Header.js";
-import HeaderLinks from "components/Header/HeaderLinks.js";
-import Footer from "components/Footer/Footer.js";
-import GridContainer from "components/Grid/GridContainer.js";
-import GridItem from "components/Grid/GridItem.js";
-import Parallax from "components/Parallax/Parallax.js";
-// sections for this page
-import BlogPosts from "pages-sections/BlogPosts/blogPosts.js";
-// functions
-import { getSortedPostsData } from 'lib/posts';
+import Head from 'next/head'
+import Layout, { siteTitle } from '../components/layout'
+import utilStyles from '../styles/utils.module.css'
+import { getSortedPostsData } from '../lib/posts'
+import Link from 'next/link'
+import Date from '../components/date'
 
-import styles from "assets/jss/pages/index.js";
-
-const useStyles = makeStyles(styles);
-
-export default function Main({ allPostsData }) {
-  const classes = useStyles();
+export default function Home({ allPostsData }) {
   return (
-    <div>
-      <Header
-        brand="Digital Beans"
-        rightLinks={<HeaderLinks />}
-        fixed
-        color="dark"
-      />
-      <Parallax>
-        <div className={classes.container}>
-          <GridContainer>
-            <GridItem>
-              <div className={classes.brand}>
-                <h1 className={classes.title}>Digital Beans</h1>
-                <h3 className={classes.subtitle}>
-                  Yet Another Tech Blog
-                </h3>
-              </div>
-            </GridItem>
-          </GridContainer>
-        </div>
-      </Parallax>
-
-      <div className={classNames(classes.main, classes.mainRaised)}>
-        <BlogPosts 
-          data={allPostsData}
-        />
-      </div>
-      <Footer />
-    </div>
-  );
+    <Layout home>
+      <Head>
+        <title>{siteTitle}</title>
+      </Head>
+      <section className={utilStyles.headingMd}>
+        <p>Hi, I'm Binayak. I'm a developer and devops engineer.</p>
+        <p>
+          This is my rambling. 
+        </p>
+      </section>
+      <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
+        <h2 className={utilStyles.headingLg}>Blog</h2>
+        <ul className={utilStyles.list}>
+          {allPostsData.map(({ id, date, title }) => (
+            <li className={utilStyles.listItem} key={id}>
+              <Link href={`/posts/${id}`}>
+                <a>{title}</a>
+              </Link>
+              <br />
+              <small className={utilStyles.lightText}>
+                <Date dateString={date} />
+              </small>
+            </li>
+          ))}
+        </ul>
+      </section>
+    </Layout>
+  )
 }
 
 export async function getStaticProps() {

@@ -1,5 +1,5 @@
 ---
-title: Crypto Update
+title: Crypto Update Script
 date: '2017-07-23'
 ---
 Short python script to record data from Nanopool cryptocurrency mining account into Google sheets. 
