@@ -3,11 +3,22 @@ import Image from 'next/image'
 import styles from './layout.module.css'
 import utilStyles from '../styles/utils.module.css'
 import Link from 'next/link'
+import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons"
+import { config } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import '@fortawesome/fontawesome-svg-core/styles.css';
 
-const name = 'Digital Beans'
+config.autoAddCss = false
+
+export const githubLink = "https://github.com/binayakd"
+export const linkedInLink = "https://www.linkedin.com/in/dasguptabinayak/"
+export const cvLink = "https://docs.google.com/document/d/175dF-LICW2gAak0Hg1HZckOzKBtXOPUcbEbvFwvdvi4/export?format=pdf"
 export const siteTitle = 'Digital Beans'
 
-export default function Layout({ children, home }) {
+const name = '{{ Digital Beans }}'
+const d = new Date();
+
+export default function Layout(props) {
   return (
     <div className={styles.container}>
       <Head>
@@ -17,10 +28,12 @@ export default function Layout({ children, home }) {
           content="Binayak Dasgupta's Rambles"
         />
         <meta name="og:title" content={siteTitle} />
+        <title>{siteTitle}</title>
       </Head>
-      <header className={styles.header}>
-        {home ? (
+      <header>
+        {props.home ? (
           <>
+          <header className={styles.header}>
             <Image
               priority
               src="/images/bean.png"
@@ -30,38 +43,42 @@ export default function Layout({ children, home }) {
               alt={name}
             />
             <h1 className={utilStyles.heading2Xl}>{name}</h1>
+          </header>
           </>
         ) : (
           <>
-            <Link href="/">
-              <a>
-                <Image
-                  priority
-                  src="/images/bean.png"
-                  className={utilStyles.borderCircle}
-                  height={108}
-                  width={108}
-                  alt={name}
-                />
-              </a>
-            </Link>
-            <h2 className={utilStyles.headingLg}>
+          <header className={styles.headerLeft}>
+            <h2>
               <Link href="/">
-                <a className={utilStyles.colorInherit}>{name}</a>
+                <a className={utilStyles.headingLg}>{name}</a>
               </Link>
+              <div className={styles.topnavRight}>
+                <a href={githubLink} target="_blank"><FontAwesomeIcon icon={faGithub} /></a>
+                <span>&nbsp;&nbsp;</span>
+                <a href={linkedInLink} target="_blank"><FontAwesomeIcon icon={faLinkedin} /></a> {" "}
+              </div>
+              
             </h2>
+          </header>
           </>
         )}
       </header>
       <hr color="#3c3c3c" />
-      <main>{children}</main>
-      {!home && (
+      <main>{props.children}</main>
+      {!props.home && (
         <div className={styles.backToHome}>
-          <Link href="/">
-            <a>← Back to home</a>
+          <Link href={props.backLink}>
+            <a>← Back</a>
           </Link>
         </div>
       )}
+      <hr color="#3c3c3c" />
+      <section className={utilStyles.center}>
+        <small className={utilStyles.lightText}>
+          &copy; Binayak Dasgupta {d.getFullYear()}
+        </small>
+      </section>
     </div>
+    
   )
 }
